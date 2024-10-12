@@ -23,15 +23,15 @@ label{
 }
 
 table.basic{
-    @apply w-full;
+    @apply w-full rounded-lg shadow-lg;
 }
 
 table.basic tr td{
-    @apply border p-1 border-blue-200
+    @apply p-1 pl-6;
 }
 
 table.basic thead tr td{
-    @apply bg-blue-100;
+    @apply text-gray-700 uppercase border-b-2 border-gray-300 pl-6;
 }
 
 table.basic a{

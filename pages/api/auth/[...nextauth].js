@@ -4,7 +4,7 @@ import { MongoDBAdapter } from "@auth/mongodb-adapter"
 import client from "@/lib/db"
 import { ServerSession } from 'mongodb';
 
-const adminEmails = ['pranavlande1@gmail.com'];
+const adminEmails = ['pranavlande1@gmail.com','totallynotzenitsu@gmail.com'];
 
 export const authOptions = {
   providers: [
