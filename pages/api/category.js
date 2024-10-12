@@ -5,7 +5,7 @@ import { isAdminRequest } from "./auth/[...nextauth]";
 export default async function handle(req,res) {
     await MongooseConnect();
     const method = req?.method;
-    //await isAdminRequest(req,res);
+    await isAdminRequest(req,res);
 
     if(method === 'POST'){
         const {name, parentCategory, properties} = req.body;

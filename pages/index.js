@@ -31,7 +31,7 @@ export default function Home() {
             <Image src={userImg} height={30} width={30} alt='userImg' quality={100} className='rounded-full object-cover'/>
             {currWidth <= 425 ? session?.user?.name.split(' ')[0] : session?.user?.name}
           </div>
-          <button onClick={() => signOut('google')} className="rounded-full text-white font-bold bg-red-500 p-1 px-4">Logout</button>
+          <button onClick={() => signOut()} className="rounded-full text-white font-bold bg-red-500 p-1 px-4">Logout</button>
         </div>
       </Layout>
     </>

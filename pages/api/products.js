@@ -1,10 +1,13 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import MongooseConnect from "@/lib/mongoose";
 import {Product} from "@/models/Product" ;
+import { isAdminRequest } from "./auth/[...nextauth]";
 
 export default async function handler(req, res) {
     await MongooseConnect() ;
     const {method} = req ;
+    await isAdminRequest(req,res);
+
     if(method === 'POST'){
         const {title, description, price, images, category, properties} = req.body;
         const productDoc = await Product.create({
