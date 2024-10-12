@@ -2,24 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-input, textarea{
-    @apply w-full border-2 border-gray-300 rounded-lg px-2 mb-2 mt-1
+input, textarea, select{
+    @apply w-full border-2 border-gray-300 rounded-lg px-2 mb-6 mt-1
 }
 
-input:focus, textarea:focus{
-    @apply border-red-600;
+input:focus, textarea:focus, select:focus{
+    @apply border-2 border-blue-900
 }
 
 h1{
-    @apply text-blue-900 mb-2 text-xl;
+    @apply text-blue-900 mb-2 text-xl font-semibold uppercase;
 }
 
 .pri-btn{
-    @apply bg-blue-900 text-white rounded-lg p-1 px-4 my-1;
+    @apply bg-blue-700 text-white rounded-lg p-1 px-4 my-1;
 }
 
 label{
-    @apply text-blue-900 ;
+    @apply text-blue-900 text-lg uppercase;
 }
 
 table.basic{
@@ -35,5 +35,17 @@ table.basic thead tr td{
 }
 
 table.basic a{
-    @apply bg-blue-900 text-white text-sm p-1 px-2 inline-flex items-center rounded-md
+    @apply bg-blue-900 text-white text-sm p-1 px-4 inline-flex items-center rounded-md gap-1 my-1
+}
+
+.btn-red, .btn-default{
+    @apply px-4 py-1 rounded-lg text-white font-semibold border ;
+}
+
+.btn-red {
+    @apply bg-red-500;
+}
+
+.btn-default {
+    @apply bg-gray-400;
 }
