@@ -1,7 +1,9 @@
 import Layout from '@/components/Layout'
 import {signOut, useSession } from 'next-auth/react'
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+
 
 export default function Home() {
   const {data:session} = useSession() ;
@@ -14,6 +16,7 @@ export default function Home() {
         setCurrWidth(window.innerWidth); // 768px corresponds to 'md' breakpoint in Tailwind
       }
     };
+
 
     // Initial check
     handleResize();
@@ -31,7 +34,6 @@ export default function Home() {
             <Image src={userImg} height={30} width={30} alt='userImg' quality={100} className='rounded-full object-cover'/>
             {currWidth <= 425 ? session?.user?.name.split(' ')[0] : session?.user?.name}
           </div>
-          <button onClick={() => signOut()} className="rounded-full text-white font-bold bg-red-500 p-1 px-4">Logout</button>
         </div>
       </Layout>
     </>

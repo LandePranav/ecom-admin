@@ -30,8 +30,10 @@ table.basic tr td{
     @apply p-1 pl-6;
 }
 
-table.basic thead tr td{
-    @apply text-gray-700 uppercase border-b-2 border-gray-300 pl-6;
+table.basic thead tr td,
+table.basic thead tr th
+{
+    @apply text-gray-500 uppercase border-b-2 border-gray-300 pl-6;
 }
 
 table.basic a{

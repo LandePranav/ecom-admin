@@ -1,11 +1,16 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { signOut } from "next-auth/react";
 
 export default function Nav({visible}) {
     const unactive = "flex w-full p-2 pl-4 gap-2" ;
     const active = unactive + " bg-white text-primary rounded-lg" ;
     const router = useRouter();
     const {pathname} = router ;
+    async function logout(){
+        await router.push('/');
+        signOut();
+      }
     return(
         <aside className={(!visible ? "-left-full" : 'left-0 top-0') + " pt-6 pl-5 pr-2 mr-2 text-gray-700 fixed w-full h-full bg-gray-300 text-nowrap md:static md:w-auto transition-all"}>
             <Link href={"/"} className="flex gap-2 p-2 pl-4 mb-4 mr-8 w-auto">
@@ -46,6 +51,7 @@ export default function Nav({visible}) {
                     </svg>
                     Settings
                 </Link>
+                <button onClick={logout} className="rounded-full text-white font-bold bg-red-500 p-1 px-4 mt-3">Logout</button>
             </nav>
         </aside>
     );
