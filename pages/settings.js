@@ -1,48 +1,58 @@
 import Layout from "@/components/Layout";
+import MongooseConnect from "@/lib/mongoose";
+import { Setting } from "@/models/Settings";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export default async function Settings() {
+export default function Settings({featured:existingFeatured, delivery:existingDelivery}) {
+
+    const [productList, setProductList] = useState([]);
+    const [delivery, setDelivery] = useState(existingDelivery || '');
+    const [featured, setFeatured] = useState(existingFeatured || '');
 
     useEffect(()=>{
-        // const products = axios.get('/api/products');
-        // setProducts(() => [...products]);
-        // const settings = axios.get('/api/setting');
-        // setSettings({featured:settings.featured, delivery:settings.delivery});
-    },[]);
+        axios.get('/api/products').then(res => {
+            setProductList(res.data);
+        });
+    },[])
 
-
-    const [products, setProducts] = useState([]);
-    const [featured, setFeatured] = useState();
-    const [delivery, setDelivery] = useState(Number);
-    const [settings, setSettings] = useState({});
-
-    const handleSubmit = async (e) => {
+    async function handleSubmit(e){
         e.preventDefault();
-        // const data = await axios.post('/api/setting', {featured,delivery});
-        console.log(data);
+        const res = await axios.post('/api/setting', {featured, delivery});
+        console.log(res);
+        window.alert("Updated Successfully")
     }
 
     return(
-        <Layout>
-            <h1>SETTINGS</h1>
-            <form onSubmit={handleSubmit}>
-                <label>Featured Product</label>
-                <select value={featured || ""} onChange={e => setFeatured(e.target.value)}>
-                    {/* <option value={featured}>{featured}</option>
-                    {products.map(product => (
-                        <option key={product._id} value={product.title}>
-                            {product.title}
-                        </option>
-                    ))} */}
-                </select>
-                <label>
+        <div>
+            <Layout>
+                <h1>Settings</h1>
+                <div className="py-2"></div>
+                <form onSubmit={handleSubmit}>
+                    <label>Featured Product</label>
+                    <select value={featured} onChange={e=>{setFeatured(e.target.value)}}>
+                        <option value=""> select product</option>
+                        {productList?.map(product => (
+                            <option key={product._id} value={product._id}>{product.title}</option>
+                        ))}
+                    </select>
+                    <label>Deivery Charge</label>
+                    <input type="number" placeholder="$ price" value={delivery || ''} onChange={e=>setDelivery(e.target.value)} />
+                    <button type="submit" className="border border-black rounded-lg px-4 py-1 uppercase bg-blue-500 font-semibold">Save</button>
+                </form>
+            </Layout>
+        </div>
+    );
+}
 
-                </label>
-                <input type="number" placeholder="Delivery Charges" value={delivery} onChange={e=> setDelivery(e.target.value)} />
-
-                <button type="submit">SAVE</button>
-            </form>
-        </Layout>
-    )
+export async function getServerSideProps(){
+        await MongooseConnect();
+        const data = await Setting.find({});
+        console.log("Data in gssp: ", data);
+        return {
+            props: {
+                featured: JSON.parse(JSON.stringify(data[0].featured)),
+                delivery: JSON.parse(JSON.stringify(data[0].delivery))
+            }
+        }
 }
