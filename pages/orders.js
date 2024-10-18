@@ -36,7 +36,7 @@ export default function Orders() {
                             </td>
                             <td>{order.line_items.map(l => (
                                 <>
-                                {l.price_data?.product_data?.name} x {l.productCount} x {l.price_data?.unit_amount}
+                                {l.price_data?.product_data?.name} x {l.count} x {l.price_data?.unit_amount}
                                 </>
                             ))}
                             </td>
