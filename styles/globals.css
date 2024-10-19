@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+.dashboardBox {
+    @apply border border-gray-500 py-3 rounded-lg text-center w-[75%] mx-auto flex flex-col gap-2 items-center justify-center font-mono uppercase font-semibold text-gray-600 md:w-full
+}
+
+.dashboardBox > .sub {
+    @apply lowercase font-normal font-sans text-gray-400 -mb-2
+}
+
+.dashboardBox > h3 {
+    @apply text-gray-800 font-bold text-xl
+}
+
 input, textarea, select{
     @apply w-full border-2 border-gray-300 rounded-lg px-2 mb-6 mt-1
 }
