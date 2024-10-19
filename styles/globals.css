@@ -39,13 +39,17 @@ table.basic{
 }
 
 table.basic tr td{
-    @apply p-1 pl-6;
+    @apply p-1 pl-4;
 }
 
 table.basic thead tr td,
 table.basic thead tr th
 {
-    @apply text-gray-500 uppercase border-b-2 border-gray-300 pl-6;
+    @apply text-gray-500 uppercase border-b-2 border-gray-300 pl-5;
+}
+
+table.basic thead th{
+    @apply text-start;
 }
 
 table.basic a{

@@ -181,7 +181,7 @@ function Category({swal}) {
                 </div>
             </form>
             {!editedCategory && (
-                <table className="basic mt-4">
+                <table className="basic mt-4 -ml-2 w-dvw">
                 <thead>
                     <tr>
                         <td>Category Name</td>

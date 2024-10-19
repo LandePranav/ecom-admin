@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
-
 export default function Home({dailyOrders, weeklyOrders, monthlyOrders, dailyRevenue, weeklyRevenue, monthlyRevenue}) {
   const {data:session} = useSession() ;
   const userImg = session?.user?.image;
@@ -30,7 +29,7 @@ export default function Home({dailyOrders, weeklyOrders, monthlyOrders, dailyRev
   return (
     <>
       <Layout>
-        <div className="flex gap-1 justify-end items-center">
+        <div className="flex gap-1 justify-end items-center ">
           <div className='flex gap-2 items-center font-mono bg-gray-300 p-1 px-2 rounded-full text-nowrap overflow-hidden' >
             <Image src={userImg} height={30} width={30} alt='userImg' quality={100} className='rounded-full object-cover'/>
             {currWidth <= 425 ? session?.user?.name.split(' ')[0] : session?.user?.name}
@@ -84,10 +83,15 @@ export default function Home({dailyOrders, weeklyOrders, monthlyOrders, dailyRev
 export async function getServerSideProps(){
   await MongooseConnect();
   const now = new Date();
+ //to set time to IST which is +5:30 UTC
 
   const startOfDay = new Date(now);
-  startOfDay.setUTCHours(0, 0, 0, 0);
+  startOfDay.setHours(0, 0, 0, 0);
+  startOfDay.setMinutes(startOfDay.getMinutes());
   console.log("day : ", startOfDay);
+  const endOfDay = new Date(startOfDay);
+  endOfDay.setHours(23, 59, 59, 999);
+  endOfDay.setMinutes(endOfDay.getMinutes());
 
   const startOfWeek = new Date(now);
   const dayOfWeek = startOfWeek.getUTCDay();
@@ -101,6 +105,8 @@ export async function getServerSideProps(){
   endOfWeek.setUTCHours(23, 59, 59, 999);
 
   const startOfMonth = new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),1));
+  // const endOfMonth = new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),1));
+
 
   async function getOrdersRevenue(startOfTime){
     let revenue = 0;
@@ -122,6 +128,7 @@ export async function getServerSideProps(){
   const dailyOrders = await Order.countDocuments({
     createdAt: {
       $gte: startOfDay,
+      $lt: endOfDay
     }
   })
 
